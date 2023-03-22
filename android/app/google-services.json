@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "677182716199",
+    "project_id": "kimmart-cdf07",
+    "storage_bucket": "kimmart-cdf07.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:677182716199:android:25c28fbd79b062aa49d102",
+        "android_client_info": {
+          "package_name": "com.kimmart_member_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "677182716199-pgqi94qoatnli83a9lli7lhekevr9u77.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kimmart_member_app",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "677182716199-oldbmlp5d6pmel1sosrea8p5f0n4fmj9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCejbIBr7QNtC8DKHqQ7T5eg2KbDX1atl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "677182716199-oldbmlp5d6pmel1sosrea8p5f0n4fmj9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

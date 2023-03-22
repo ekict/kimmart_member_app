@@ -1,0 +1,20 @@
+const Route = {
+  SplashScreen: 'SplashScreen',
+  Home: 'Home',
+  Login: 'Login',
+  SignUp: 'SignUp',
+  ForgotPassword: 'ForgotPassword',
+  VerifyOTP: 'VerifyOTP',
+  ChangePassword: 'ChangePassword',
+  CompletedVerify: 'CompletedVerify',
+  GettingStart: 'GettingStart',
+  EditProfile: 'EditProfile',
+  Language: 'Language',
+  Locations: 'Locations',
+  CameraScan: 'CameraScan',
+  Earn: 'Earn',
+  Redeem: 'Redeem',
+  PurchaseHistory: 'PurchaseHistory',
+  PurchaseDetail: 'PurchaseDetail',
+};
+export default Route;
