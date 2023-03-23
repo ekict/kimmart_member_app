@@ -28,7 +28,7 @@
     "axios": "^1.3.4",
     "formik": "^2.2.9",
     "i18next": "^22.4.11",
-    "lottie-ios": "^4.1.3",
+    "lottie-ios": "3.4.1",
     "lottie-react-native": "^5.1.5",
     "nativewind": "^2.0.11",
     "react": "18.2.0",

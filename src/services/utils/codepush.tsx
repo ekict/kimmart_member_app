@@ -2,6 +2,7 @@ import CodePush, {DownloadProgress} from 'react-native-code-push';
 import React, {createContext, useContext} from 'react';
 
 //** Deploy = appcenter codepush release-react -a ekictec-gmail.com/kimmart-member-android -d Staging */
+//** IOS Deploy = appcenter codepush release-react -a ekictec-gmail.com/kimmart-member-ios -d Staging */
 const CODE_PUSH_OPTIONS = {
   checkFrequency: CodePush.CheckFrequency.ON_APP_START,
 };

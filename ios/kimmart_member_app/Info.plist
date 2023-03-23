@@ -35,8 +35,12 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) need access to your camera to scan QR Code and update your profile picture.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+  <string>$(PRODUCT_NAME) need access to your camera to update your profile picture.</string>
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>$(PRODUCT_NAME) need access to your camera to add your profile picture.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -46,10 +50,51 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationPortrait</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>AntDesign.ttf</string>
+		<string>Entypo.ttf</string>
+		<string>EvilIcons.ttf</string>
+		<string>Feather.ttf</string>
+		<string>FontAwesome.ttf</string>
+		<string>FontAwesome5_Brands.ttf</string>
+		<string>FontAwesome5_Regular.ttf</string>
+		<string>FontAwesome5_Solid.ttf</string>
+		<string>Foundation.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>SimpleLineIcons.ttf</string>
+		<string>Octicons.ttf</string>
+		<string>Zocial.ttf</string>
+		<string>Fontisto.ttf</string>
+		<string>Khmer-Regular.ttf</string>
+		<string>ADaunkeo-Regular.ttf</string>
+		<string>Battambang-Bold.ttf</string>
+		<string>Battambang-Regular.ttf</string>
+		<string>Freehand-Regular.ttf</string>
+		<string>GoogleSans-Bold.ttf</string>
+		<string>GoogleSans-Normal.ttf</string>
+		<string>GoogleSans-SemiBold.ttf</string>
+		<string>KhmerOSMoul.ttf</string>
+		<string>Moul-Regular.ttf</string>
+		<string>OpenSans-Bold.ttf</string>
+		<string>OpenSans-ExtraBold.ttf</string>
+		<string>OpenSans-Light.ttf</string>
+		<string>OpenSans-Normal.ttf</string>
+		<string>OpenSans-SemiBold.ttf</string>
+		<string>Siemreap-Regular.ttf</string>
+	</array>
+	<key>CodePushDeploymentKey</key>
+	<string>JAgCroclJApQbrMSO0yRAs2zBlHCargxXM8iH</string>
 </dict>
 </plist>

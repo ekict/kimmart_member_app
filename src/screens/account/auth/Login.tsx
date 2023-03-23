@@ -62,7 +62,7 @@ const Login = () => {
               />
             </Svg>
           </View>
-          <View className="absolute right-[-15px] top-[90px] z-20 bg-[#F6E3D0] h-[120px] w-9/12 rounded-[21px] p-[26px]">
+          <View className="absolute right-[-15px] top-[90px] z-20 bg-[#F6E3D0] h-[120px] w-9/12 rounded-[21px] p-[24px]">
             <FastImage
               source={require('../../../res/logo/logo-wide.png')}
               style={{
