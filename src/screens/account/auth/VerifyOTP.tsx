@@ -35,9 +35,8 @@ const VerifyOTP = (props: any) => {
   });
 
   useEffect(() => {
-    const settings = auth().settings;
-    settings.appVerificationDisabledForTesting = true;
-
+    // const settings = auth().settings;
+    // settings.appVerificationDisabledForTesting = true;
     if (durationCode === 60) signInWithPhoneNumber();
     return () => {
       clearInterval(interval);

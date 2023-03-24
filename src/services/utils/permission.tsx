@@ -49,7 +49,6 @@ export const allowCameraAccess = async () => {
 };
 
 export const checkPermissionCamera = async () => {
-  check(PERMISSIONS.IOS.LOCATION_ALWAYS);
   if (Platform.OS === 'android') {
     const permission = await check(PERMISSIONS.ANDROID.CAMERA);
     return RESULTS.GRANTED === permission;
