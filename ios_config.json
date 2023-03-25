@@ -1,5 +1,4 @@
 {
-  "@react-native-firebase/app": "^16.4.6",
   "react-native-code-push": "^7.0.5",
   "react-native-vector-icons": "^9.2.0",
   "react-native-vision-camera": "^2.15.2"

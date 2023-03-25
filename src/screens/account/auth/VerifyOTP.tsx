@@ -14,11 +14,14 @@ import {
 } from 'react-native-confirmation-code-field';
 import {padLeadingZeros} from '../../../services/utils';
 import {bgColor} from '../../../styles';
-import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import Toast from 'react-native-toast-message';
 import {reset} from '../../../services/utils/navigate';
 import Route from '../../../navigation/constant';
 import FastImage from 'react-native-fast-image';
+import {
+  checkVerification,
+  sendSmsVerification,
+} from '../../../services/utils/verifyOTP';
 
 let interval: any = null;
 const CELL_COUNT = 6;
@@ -27,7 +30,7 @@ const VerifyOTP = (props: any) => {
   const [durationCode, setDurationCode] = useState(60);
   const [isLoading, setIsLoading] = useState(false);
   const [code, setCode] = useState('');
-  const [verifiedID, setVerifiedID] = useState('');
+  const [verify, setVerify] = useState<any>(null)
   const ref = useBlurOnFulfill({value: code, cellCount: CELL_COUNT});
   const [_props, getCellOnLayoutHandler] = useClearByFocusCell({
     value: code,
@@ -35,96 +38,57 @@ const VerifyOTP = (props: any) => {
   });
 
   useEffect(() => {
-    // const settings = auth().settings;
-    // settings.appVerificationDisabledForTesting = true;
-    if (durationCode === 60) signInWithPhoneNumber();
+    if (durationCode === 60) verifyPhoneNumber();
     return () => {
       clearInterval(interval);
     };
   }, [phone]);
 
-  // Handle the button press
-  async function signInWithPhoneNumber(isResend = false) {
+  async function verifyPhoneNumber() {
     setIsLoading(true);
-    await auth()
-      .verifyPhoneNumber(phone, isResend)
-      .on('state_changed', async phoneAuthSnapshot => {
-        setIsLoading(false);
-        switch (phoneAuthSnapshot.state) {
-          case auth.PhoneAuthState.AUTO_VERIFIED: // or 'verified'
-            const {verificationId, code} = phoneAuthSnapshot;
-            if (
-              verificationId !== '' ||
-              verificationId !== null ||
-              verificationId !== undefined
-            ) {
-              if (code !== null) {
-                setCode(code);
-                await _confirmCode(verificationId, code);
-              }
-            }
-            break;
-
-          case auth.PhoneAuthState.CODE_SENT: // or 'sent'
-            setVerifiedID(phoneAuthSnapshot.verificationId);
-            Toast.show({
-              text1: 'auth.wait_for_6_digit_code',
-            });
-            let count = 0;
-            interval = setInterval(() => {
-              if (count === 60) {
-                clearInterval(interval);
-              }
-              setDurationCode((counter: number) => counter - 1);
-              count = count + 1;
-            }, 1000);
-            break;
-          case auth.PhoneAuthState.AUTO_VERIFY_TIMEOUT: // or 'timeout'
-            break;
-          case auth.PhoneAuthState.ERROR: // or 'error'
-            break;
+    const result = await sendSmsVerification(phone);
+    if (result) {
+      setVerify(result);
+      setIsLoading(false)
+      Toast.show({
+        text1: 'auth.wait_for_6_digit_code',
+      });
+      let count = 0;
+      interval = setInterval(() => {
+        if (count === 60) {
+          clearInterval(interval);
         }
-      })
-      .catch(async error => {
-        console.log(error);
-        setIsLoading(false);
-        Toast.show({
-          type: 'error',
-          text1: 'auth.please_check_your_phone_number',
-        });
-        clearInterval(interval);
+        setDurationCode((counter: number) => counter - 1);
+        count = count + 1;
+      }, 1000);
+    } else {
+      setIsLoading(false);
+      Toast.show({
+        type: 'error',
+        text1: 'error.server_error',
       });
-  }
-  async function _confirmCode(verificationId: any, code: any) {
-    setIsLoading(true);
-    const provider = await auth.PhoneAuthProvider;
-    const authCredential = await provider.credential(verificationId, code);
-    signInWithPhoneAuthCredential(authCredential);
+      clearInterval(interval);
+    }
   }
 
-  async function signInWithPhoneAuthCredential(
-    credential: FirebaseAuthTypes.AuthCredential,
-  ) {
-    await auth()
-      .signInWithCredential(credential)
-      .then(async () => {
-        reset(Route.CompletedVerify, {
-          phone: phoneText,
-        });
-      })
-      .catch(async error => {
-        console.log(error);
-        Toast.show({
-          type: 'warning',
-          text1: 'auth.code_incorrect',
-        });
-        setIsLoading(false);
-        clearInterval(interval);
+  async function _confirmCode() {
+    setIsLoading(true);
+    const result = await checkVerification(phone, code,verify);
+    if (result) {
+      reset(Route.CompletedVerify, {
+        phone: phoneText,
       });
+    } else {
+      Toast.show({
+        type: 'warning',
+        text1: 'auth.code_incorrect',
+      });
+      setIsLoading(false);
+    }
   }
 
   function verifyCode() {
-    _confirmCode(verifiedID, code);
+    _confirmCode();
   }
 
   return (
@@ -200,7 +164,7 @@ const VerifyOTP = (props: any) => {
                 <TouchableOpacity
                   onPress={() => {
                     setDurationCode(60);
-                    signInWithPhoneNumber(true);
+                    verifyPhoneNumber();
                   }}
                   style={styles.resendCode}>
                   <TextTranslate style={styles.textResendCode}>
