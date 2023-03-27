@@ -9,6 +9,7 @@ import {getImage} from '../../services/utils';
 
 const SlideShow = () => {
   const home = useAppSelector(state => state.home);
+  const url = useAppSelector(state => state.url);
   return home?.slideshow.length === 0 ? (
     <View
       style={{
@@ -37,7 +38,7 @@ const SlideShow = () => {
                     backgroundColor: colors.whiteSmokeColor,
                   },
                 ]}
-                source={{uri: getImage(item.image, 'slideshows')}}
+                source={{uri: getImage(url, item.image, 'slideshows')}}
                 resizeMode={FastImage.resizeMode.contain}
               />
             </View>

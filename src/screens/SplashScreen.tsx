@@ -1,20 +1,34 @@
 import {StyleSheet, View} from 'react-native';
 import React, {useEffect} from 'react';
 import {bgColor, deviceWidth} from '../styles';
-import {useAppSelector} from '../hooks/redux';
+import {useAppDispatch, useAppSelector} from '../hooks/redux';
 import {reset} from '../services/utils/navigate';
 import Route from '../navigation/constant';
 import FastImage from 'react-native-fast-image';
+import {getURL} from '../hooks/api';
+import {setLoadURL} from '../redux/actions';
 
 const SplashScreen = () => {
+  const dispatch = useAppDispatch();
   const user = useAppSelector(state => state.user);
+  const url = useAppSelector(state => state.url);
   useEffect(() => {
-    setTimeout(() => {
-      if (user) {
-        reset(Route.Home);
-      } else reset(Route.Login);
-    }, 1000);
-  }, [user]);
+    const initURL = async () => {
+      const url = await getURL();
+      dispatch(setLoadURL(url));
+    };
+    initURL();
+  }, []);
+
+  useEffect(() => {
+    if (url) {
+      setTimeout(() => {
+        if (user) {
+          reset(Route.Home);
+        } else reset(Route.Login);
+      }, 1000);
+    }
+  }, [user, url]);
 
   return (
     <View

@@ -29,6 +29,7 @@ const Locations = () => {
   const dispatch = useAppDispatch();
   const home = useAppSelector(state => state.home);
   const user = useAppSelector(state => state.user);
+  const url = useAppSelector(state => state.url);
   const onDirections = (item: any) => {
     Linking.openURL(item?.map_url);
   };
@@ -37,7 +38,7 @@ const Locations = () => {
       <View className={`pb-3`}>
         <FastImage
           source={{
-            uri: getImage(item?.image, 'branch'),
+            uri: getImage(url, item?.image, 'branch'),
           }}
           resizeMode="cover"
           style={{

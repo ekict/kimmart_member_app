@@ -1,3 +1,4 @@
+export const URL = `https://ektecno.com/api/membercreds`;
 export const CHECK_PHONE = `checkphone`;
 export const ADD_MEMBER = `addmember`;
 export const HOME_MEMBER = `home_member`;

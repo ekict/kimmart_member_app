@@ -30,10 +30,11 @@ const CustomDrawer = () => {
   const {accessLogin} = useAuth();
   const user = useAppSelector(state => state.user);
   const home = useAppSelector(state => state.home);
+  const url = useAppSelector(state => state.url);
   const defaultImage = require('../../assets/images/profile.png');
   const image =
     user?.image && user?.image !== 'no_image.png'
-      ? {uri: getImage(user?.image, 'member')}
+      ? {uri: getImage(url, user?.image, 'member')}
       : defaultImage;
 
   const logout = async () => {

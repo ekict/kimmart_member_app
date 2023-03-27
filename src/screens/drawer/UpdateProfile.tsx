@@ -31,6 +31,7 @@ import {setLoadHome, setLoadUser} from '../../redux/actions';
 const UpdateProfile = (props: any) => {
   const {phone} = props.route.params;
   const user = useAppSelector(state => state.user);
+  const url = useAppSelector(state => state.url);
   const dispatch = useAppDispatch();
   const bottomSheetRef = useRef<RBSheet>(null);
   const defaultImage = require('../../assets/images/profile.png');
@@ -38,7 +39,7 @@ const UpdateProfile = (props: any) => {
   const [image, setImage] = useState(
     user?.image && user?.image !== 'no_image.png'
       ? {
-          uri: getImage(user?.image, 'member'),
+          uri: getImage(url, user?.image, 'member'),
         }
       : null,
   );
@@ -124,7 +125,7 @@ const UpdateProfile = (props: any) => {
       };
 
       if (image) {
-        if (image?.uri !== getImage(user?.image, 'member')) {
+        if (image?.uri !== getImage(url, user?.image, 'member')) {
           params.image = image;
         }
       } else {

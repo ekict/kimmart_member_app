@@ -1,5 +1,7 @@
+import {URL} from '../constants';
 import axios from 'axios';
 import EncryptedStorage from 'react-native-encrypted-storage';
+import store, {RootState} from '../../redux/store';
 
 export const MethodType = {
   POST: 'POST',
@@ -8,20 +10,29 @@ export const MethodType = {
   DELETE: 'DELETE',
 };
 
-export const URL = {
-  prod: 'https://dev.ektecno.com',
-  dev: 'https://dev.ektecno.com',
-};
+// export const URL = {
+//   prod: 'https://dev.ektecno.com',
+//   dev: 'https://dev.ektecno.com',
+// };
 
-export const server = __DEV__ ? URL.dev : URL.prod;
+// export const server = __DEV__ ? URL.dev : URL.prod;
 
 // export const server = URL.dev;
 
-export const API = axios.create({
-  baseURL: `${server}/api/`,
-});
+// export const API = axios.create({
+//   baseURL: `${server}/api/`,
+// });
 
 // API.defaults.withCredentials = true;
+
+export const getURL = async () => {
+  let result: any = await fetch(URL);
+  result = await result.json();
+  if (result.success) {
+    result = __DEV__ ? result?.data?.dev_url : result?.data?.url;
+    return result;
+  }
+};
 
 export function fetchAPI(
   type: string,
@@ -34,10 +45,11 @@ export function fetchAPI(
   return new Promise<any>(async resolve => {
     let cookie = await getCookie();
     let token: any = await EncryptedStorage.getItem('@token');
-
+    const state: RootState = store.baseStore.getState();
     const options: any = {
       method: type,
-      url: alias,
+      baseURL: state.url,
+      url: `api/${alias}`,
       headers: {
         Authorization: manual_token
           ? `Bearer ${manual_token}`
@@ -52,7 +64,7 @@ export function fetchAPI(
       params,
       signal: controller.signal,
     };
-    API(options)
+    axios(options)
       .then(function (response) {
         resolve(response.data);
       })
@@ -66,7 +78,8 @@ export function fetchAPI(
 }
 
 const getCookie = async () => {
-  return axios.get(`${server}/sanctum/csrf-cookie`).catch(error => {
+  const state: RootState = store.baseStore.getState();
+  return axios.get(`${state.url}sanctum/csrf-cookie`).catch(error => {
     console.log(error);
     return '';
   });

@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import {makeid} from '../../services/utils';
 import {IS_ONLINE, REAL_TIME} from '../constants';
-import {User, Home} from './data';
+import {User, Home, URL} from './data';
 
 const Internet = (state = true, action: any) => {
   switch (action.type) {
@@ -26,6 +26,7 @@ const rootReducer = combineReducers({
   user: User,
   home: Home,
   realtime: RealTimeRandom,
+  url: URL,
 });
 
 export type ReducerProps = ReturnType<typeof rootReducer>;

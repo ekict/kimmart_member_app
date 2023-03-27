@@ -3,7 +3,6 @@ import {useEffect, useState} from 'react';
 import {Image} from 'react-native';
 import {v1} from 'uuid';
 import {TextTranslateWithValue} from '../../components';
-import {server} from '../../hooks/api';
 import {Weight} from '../../res/lang';
 import {deviceWidth} from '../../styles';
 import {decimal_point} from '../setting';
@@ -47,10 +46,6 @@ export const ConvertDateToTime = (value: Date) => {
   let am_pm = Number(hour) > 12 ? 'PM' : 'AM';
   let convert = hour + ':' + minute + ' ' + am_pm;
   return convert;
-};
-
-export const getPath = (path: string, name: string) => {
-  return `${server}${path}${name}`;
 };
 
 export const getCurrency = (data: any, code: any) => {
@@ -478,8 +473,8 @@ export const ConvertDate = (value: any, is_short: any = true) => {
   };
 };
 
-export function getImage(image: any, type: string) {
-  return `${server}/storage/${type}/${image}`;
+export function getImage(url: any, image: any, type: string) {
+  return `${url}storage/${type}/${image}`;
 }
 
 export function groupBy(array: any, key: any) {
