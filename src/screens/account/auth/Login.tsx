@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
 import {ButtonSubmit, FlatListScroll, TextTranslate} from '../../../components';
 import {bgColor} from '../../../styles';
@@ -18,6 +18,7 @@ import {setCurrentLang} from '../../../hooks/lang';
 import i18next from 'i18next';
 import {Image} from 'react-native';
 import {TouchableOpacity} from 'react-native';
+import {testLogin} from '../../../hooks/api/get-api';
 
 const LanguageIcon: any = {
   en: require('../../../assets/images/flags/en.png'),
@@ -27,6 +28,7 @@ const LanguageIcon: any = {
 
 const Login = () => {
   const [language, setLanguage] = useState(i18next.language);
+  const [isLoading, setIsLoading] = useState(false);
   const flagComponent = (lang: string) => (
     <TouchableOpacity
       className={`flags w-[45px] h-[45px] rounded-full p-1 ${
@@ -46,6 +48,19 @@ const Login = () => {
       />
     </TouchableOpacity>
   );
+
+  const onSubmit = async (data: any) => {
+    setIsLoading(true);
+    const result = await testLogin({
+      phone: data?.phone,
+    });
+    navigate(Route.VerifyOTP, {
+      phone: `+855${checkPhoneNumber(data?.phone)}`,
+      phoneText: `0${checkPhoneNumber(data?.phone)}`,
+      manualCode: result?.success ? result?.data?.code : null,
+    });
+    setIsLoading(false);
+  };
 
   return (
     <BaseComponent>
@@ -91,12 +106,7 @@ const Login = () => {
               <Formik
                 initialValues={LoginValue}
                 validationSchema={LoginSchema}
-                onSubmit={values => {
-                  navigate(Route.VerifyOTP, {
-                    phone: `+855${checkPhoneNumber(values.phone)}`,
-                    phoneText: `0${checkPhoneNumber(values.phone)}`,
-                  });
-                }}>
+                onSubmit={onSubmit}>
                 {({handleChange, handleBlur, handleSubmit, errors}) => (
                   <View className="items-center">
                     <TextInputItem
@@ -107,12 +117,17 @@ const Login = () => {
                       error={errors.phone}
                     />
                     <ButtonSubmit
-                      disabled={Object.keys(errors).length > 0}
+                      disabled={Object.keys(errors).length > 0 || isLoading}
                       onPress={handleSubmit}
                       style={{
                         marginTop: 30,
-                      }}>
-                      auth.get_code
+                      }}
+                      is_loading={isLoading}>
+                      {isLoading ? (
+                        <ActivityIndicator color={'white'} size={24} />
+                      ) : (
+                        'auth.get_code'
+                      )}
                     </ButtonSubmit>
                   </View>
                 )}

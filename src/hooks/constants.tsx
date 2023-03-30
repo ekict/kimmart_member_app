@@ -8,3 +8,4 @@ export const EARN_POINT_INVOICES = `earnpoint_invoices`;
 export const EARN_POINT_RETURN_INVOICES = `earnpoint_return_invoices`;
 export const REDEEM_POINT_INVOICES = `redeempoint_invoices`;
 export const SUBMIT_REDEEM = `submitredeem`;
+export const TEST_LOGIN = `testlogin`;

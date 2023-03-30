@@ -8,6 +8,7 @@ import {
   REDEEM_POINT_INVOICES,
   RETURN_INVOICES,
   SUBMIT_REDEEM,
+  TEST_LOGIN,
 } from '../constants';
 
 export const checkPhone = async (data: any) => {
@@ -51,5 +52,10 @@ export const getRedeem = async (data: any) => {
 
 export const submitRedeem = async (data: any) => {
   const result = await fetchAPI(MethodType.GET, SUBMIT_REDEEM, data);
+  return result;
+};
+
+export const testLogin = async (data: any) => {
+  const result = await fetchAPI(MethodType.GET, TEST_LOGIN, data);
   return result;
 };

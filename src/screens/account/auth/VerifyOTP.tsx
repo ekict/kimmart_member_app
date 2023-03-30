@@ -1,4 +1,10 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import BaseComponent from '../../../components/BaseComponent';
 import {ButtonSubmit, FlatListScroll, TextTranslate} from '../../../components';
@@ -26,11 +32,11 @@ import {
 let interval: any = null;
 const CELL_COUNT = 6;
 const VerifyOTP = (props: any) => {
-  const {phone, phoneText} = props.route.params;
+  const {phone, phoneText, manualCode} = props.route.params;
   const [durationCode, setDurationCode] = useState(60);
   const [isLoading, setIsLoading] = useState(false);
   const [code, setCode] = useState('');
-  const [verify, setVerify] = useState<any>(null)
+  const [verify, setVerify] = useState<any>(null);
   const ref = useBlurOnFulfill({value: code, cellCount: CELL_COUNT});
   const [_props, getCellOnLayoutHandler] = useClearByFocusCell({
     value: code,
@@ -45,11 +51,25 @@ const VerifyOTP = (props: any) => {
   }, [phone]);
 
   async function verifyPhoneNumber() {
+    if (manualCode) {
+      Toast.show({
+        text1: 'auth.wait_for_6_digit_code',
+      });
+      let count = 0;
+      interval = setInterval(() => {
+        if (count === 60) {
+          clearInterval(interval);
+        }
+        setDurationCode((counter: number) => counter - 1);
+        count = count + 1;
+      }, 1000);
+      return;
+    }
     setIsLoading(true);
     const result = await sendSmsVerification(phone);
     if (result) {
       setVerify(result);
-      setIsLoading(false)
+      setIsLoading(false);
       Toast.show({
         text1: 'auth.wait_for_6_digit_code',
       });
@@ -72,8 +92,20 @@ const VerifyOTP = (props: any) => {
   }
 
   async function _confirmCode() {
+    if (manualCode) {
+      if (manualCode == code) {
+        reset(Route.CompletedVerify, {
+          phone: phoneText,
+        });
+      } else
+        Toast.show({
+          type: 'warning',
+          text1: 'auth.code_incorrect',
+        });
+      return;
+    }
     setIsLoading(true);
-    const result = await checkVerification(phone, code,verify);
+    const result = await checkVerification(phone, code, verify);
     if (result) {
       reset(Route.CompletedVerify, {
         phone: phoneText,
@@ -177,8 +209,13 @@ const VerifyOTP = (props: any) => {
                 onPress={verifyCode}
                 style={{
                   marginTop: 30,
-                }}>
-                auth.verify
+                }}
+                is_loading={isLoading}>
+                {isLoading ? (
+                  <ActivityIndicator color={'white'} size={24} />
+                ) : (
+                  'auth.verify'
+                )}
               </ButtonSubmit>
             </View>
           </View>
