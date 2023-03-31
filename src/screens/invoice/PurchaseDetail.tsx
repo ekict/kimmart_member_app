@@ -14,6 +14,7 @@ import colors from '../../styles/colors';
 import {useTranslation} from 'react-i18next';
 import Barcode from '@kichiyaki/react-native-barcode-generator';
 import {deviceWidth} from '../../styles';
+import i18next from 'i18next';
 
 const PurchaseDetail = (props: any) => {
   const {t} = useTranslation('common');
@@ -32,7 +33,11 @@ const PurchaseDetail = (props: any) => {
           style={{
             width: '49%',
           }}>
-          {item?.name_en}
+          {i18next.language == 'en'
+            ? item?.name_en
+            : i18next.language == 'ko'
+            ? item?.name_ko ?? item?.name_en
+            : item?.name_kh ?? item?.name_en}
         </TextTranslateWithValue>
         <TextTranslateWithValue
           style={{
