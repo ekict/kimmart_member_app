@@ -11,7 +11,7 @@ import {Weight} from '../../res/lang';
 
 const Menu = () => {
   return (
-    <View className="absolute z-30 top-[220]">
+    <View className="absolute z-30 top-[220px]">
       <View
         style={[
           style.shadow,

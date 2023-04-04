@@ -591,8 +591,9 @@
 			baseConfigurationReference = 15731D41586BB79FA1C40C5F /* Pods-kimmart_member_app.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1.2;
+				CURRENT_PROJECT_VERSION = 1.3;
 				DEVELOPMENT_TEAM = 7PVJL42JY9;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = kimmart_member_app/Info.plist;
@@ -610,8 +611,12 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kimmartmember.app;
 				PRODUCT_NAME = kimmart_member_app;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -621,8 +626,9 @@
 			baseConfigurationReference = 99FC9AAACDC9B3D392036BA9 /* Pods-kimmart_member_app.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1.2;
+				CURRENT_PROJECT_VERSION = 1.3;
 				DEVELOPMENT_TEAM = 7PVJL42JY9;
 				INFOPLIST_FILE = kimmart_member_app/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Kimmart Member";
@@ -639,7 +645,11 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.kimmartmember.app;
 				PRODUCT_NAME = kimmart_member_app;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

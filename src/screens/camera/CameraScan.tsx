@@ -13,7 +13,6 @@ import {useEffect} from 'react';
 import {useIsFocused} from '@react-navigation/core';
 import {goBack} from '../../services/utils/navigate';
 import {BarcodeFormat, scanBarcodes} from 'vision-camera-code-scanner';
-import {Defs, Mask, Rect, Svg} from 'react-native-svg';
 import colors from '../../styles/colors';
 import {useIsForeground} from '../../components/camera/camera';
 import {deviceHeight, deviceWidth} from '../../styles';
@@ -112,40 +111,6 @@ export function CameraScan() {
     Vibration.vibrate(150);
   };
 
-  const CameraFrame = () => {
-    return (
-      <Svg height={'100%'} width={'100%'}>
-        <Defs>
-          <Mask id="mask" height={'100%'} width={'100%'} x="0" y="0">
-            <Rect height={'100%'} width={'100%'} fill="#fff" />
-            <Rect
-              x={(deviceWidth - 330) / 2}
-              y={150}
-              height={'330'}
-              width={'330'}
-              fill="black"
-            />
-          </Mask>
-        </Defs>
-        <Rect
-          height={'100%'}
-          width={'100%'}
-          fill="rgb(252, 252, 252)"
-          mask="url(#mask)"
-        />
-        <Rect
-          x={(deviceWidth - 330) / 2}
-          y={150}
-          height={'330'}
-          width={'330'}
-          strokeWidth={2}
-          stroke={colors.secondColor}
-          fill={'transparent'}
-        />
-      </Svg>
-    );
-  };
-
   const frameProcessor = useFrameProcessor(
     frame => {
       'worklet';
@@ -187,48 +152,41 @@ export function CameraScan() {
     <>
       <BaseComponent title="home.scan_qr">
         <View style={styles.container}>
-          {device != null && (
-            <TapGestureHandler onHandlerStateChange={focusCamera}>
-              <Reanimated.View
-                style={[
-                  StyleSheet.absoluteFill,
-                  {
-                    height: '100%',
-                    zIndex: 15,
-                  },
-                ]}>
-                <Camera
-                  ref={camera}
-                  format={format}
-                  style={[
-                    StyleSheet.absoluteFillObject,
-                    {
-                      width: 325,
-                      height: 325,
-                      left: (deviceWidth - 325) / 2,
-                      top: 152.5,
-                    },
-                  ]}
-                  device={device}
-                  isActive={isActive}
-                  onInitialized={onInitialized}
-                  onError={onError}
-                  enableZoomGesture={false}
-                  photo={true}
-                  frameProcessor={
-                    device.supportsParallelVideoProcessing &&
-                    qrcodes.length === 0
-                      ? frameProcessor
-                      : undefined
-                  }
-                  orientation="portrait"
-                />
-              </Reanimated.View>
-            </TapGestureHandler>
-          )}
-
-          <View className="absolute inset-0 z-10">
-            <CameraFrame />
+          <View className="absolute inset-0 z-50 items-center pt-[160px]">
+            {device != null && (
+              <TapGestureHandler onHandlerStateChange={focusCamera}>
+                <Reanimated.View
+                  style={{
+                    padding: 2,
+                    borderWidth: 2,
+                    borderColor: colors.secondColor,
+                  }}>
+                  <Camera
+                    ref={camera}
+                    format={format}
+                    style={[
+                      {
+                        width: 325,
+                        height: 325,
+                      },
+                    ]}
+                    device={device}
+                    isActive={isActive}
+                    onInitialized={onInitialized}
+                    onError={onError}
+                    enableZoomGesture={false}
+                    photo={true}
+                    frameProcessor={
+                      device.supportsParallelVideoProcessing &&
+                      qrcodes.length === 0
+                        ? frameProcessor
+                        : undefined
+                    }
+                    orientation="portrait"
+                  />
+                </Reanimated.View>
+              </TapGestureHandler>
+            )}
           </View>
           <View className="absolute left-0 right-0 z-20 items-center top-10">
             <TextTranslate weight={Weight.bold} style={styles.title}>

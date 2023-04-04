@@ -1,7 +1,7 @@
 import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import React, {useState} from 'react';
 import {ButtonSubmit, FlatListScroll, TextTranslate} from '../../../components';
-import {bgColor} from '../../../styles';
+import {bgColor, deviceWidth} from '../../../styles';
 import colors from '../../../styles/colors';
 import {Weight} from '../../../res/lang';
 import {Formik} from 'formik';
@@ -77,13 +77,19 @@ const Login = () => {
               />
             </Svg>
           </View>
-          <View className="absolute right-[-15px] top-[70px] z-20 bg-[#F6E3D0] h-[120px] w-9/12 rounded-[21px] p-[24px]">
+          <View
+            style={{
+              width: 270,
+              height: 120,
+            }}
+            className="absolute right-[-15px] top-[70px] z-20 bg-[#F6E3D0] rounded-[21px] pl-3 pr-5 py-2">
             <FastImage
               source={require('../../../res/logo/logo-wide.png')}
               style={{
                 width: '100%',
                 height: '100%',
               }}
+              resizeMode="contain"
             />
           </View>
 

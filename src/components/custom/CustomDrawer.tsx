@@ -70,7 +70,7 @@ const CustomDrawer = () => {
       <View
         className={`flex-1 w-full
           `}>
-        <View className="h-[25%] bg-[#F6E3D0] p-6">
+        <View className="h-[200px] bg-[#F6E3D0] p-6">
           <LinearGradient
             start={{x: 0, y: 0}}
             end={{x: 1, y: 1}}

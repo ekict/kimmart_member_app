@@ -120,7 +120,7 @@ const HomeScreen = () => {
           `}>
         <Card />
         <Menu />
-        <View className="flex-1 mt-[250]">
+        <View className="flex-1 mt-[250px]">
           <FlatListScroll
             refreshControl={
               <RefreshControl

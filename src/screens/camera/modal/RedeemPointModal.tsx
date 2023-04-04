@@ -8,7 +8,6 @@ import {
   TextTranslate,
   TextTranslateWithValue,
 } from '../../../components';
-import {deviceWidth} from '../../../styles';
 import {Weight} from '../../../res/lang';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Toast from 'react-native-toast-message';
@@ -17,6 +16,7 @@ import {ActivityIndicator} from 'react-native';
 import {submitRedeem} from '../../../hooks/api/get-api';
 import {useAppSelector} from '../../../hooks/redux';
 import {StatusType, toastConfig} from '../../../../App';
+import {Platform} from 'react-native';
 
 const keypad = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', 'back'];
 const RedeemPointModal = ({visible, closeModal, data}: any) => {
@@ -28,7 +28,10 @@ const RedeemPointModal = ({visible, closeModal, data}: any) => {
 
   const renderItem = useCallback(
     ({item}: any) => {
-      const width = (deviceWidth - 24 * 4) / 3;
+      let width = 110;
+      if (Platform.OS === 'ios') {
+        if (Platform?.isPad) width = 150;
+      }
       return (
         <TouchableOpacity
           activeOpacity={0.6}
@@ -47,8 +50,7 @@ const RedeemPointModal = ({visible, closeModal, data}: any) => {
           }}
           style={{
             width,
-            height: width - 20,
-            marginLeft: 24,
+            height: width - 30,
           }}
           className="items-center justify-center">
           {item === 'back' ? (
@@ -123,13 +125,8 @@ const RedeemPointModal = ({visible, closeModal, data}: any) => {
       <View
         className={`flex-1 w-full bg-slate-200/95
         `}>
-        <TouchableOpacity
-          onPress={closeModal}
-          className="absolute items-center justify-center w-12 h-12 bg-white rounded-full top-4 left-4">
-          <XMarkIcon color={colors.darkColor} size={28} />
-        </TouchableOpacity>
         {isLoading ? (
-          <View className="mt-[45%] items-center">
+          <View className="mt-[200px] items-center">
             <TextTranslate weight={Weight.bold} fontSize={20}>
               message.processing
             </TextTranslate>
@@ -215,6 +212,11 @@ const RedeemPointModal = ({visible, closeModal, data}: any) => {
             </ButtonSubmit>
           </View>
         )}
+        <TouchableOpacity
+          onPress={closeModal}
+          className="self-center mt-10 items-center justify-center w-16 h-16 bg-white rounded-full">
+          <XMarkIcon color={colors.darkColor} size={30} />
+        </TouchableOpacity>
       </View>
       <Toast
         position="bottom"

@@ -175,7 +175,7 @@ const UpdateProfile = (props: any) => {
         <View
           className={`flex-1 w-full ${bgColor}
           `}>
-          <View className="h-[15%] bg-[#F6E3D0] p-6 z-20">
+          <View className="h-[110px] bg-[#F6E3D0] p-6 z-20">
             <View className="absolute left-0 right-0 items-center top-[35px] z-20">
               <TouchableOpacity onPress={onShowBottomSheet}>
                 <LinearGradient

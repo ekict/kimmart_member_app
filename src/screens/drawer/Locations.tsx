@@ -42,14 +42,14 @@ const Locations = () => {
           }}
           resizeMode="cover"
           style={{
-            width: deviceWidth,
+            width: '100%',
             height: deviceWidth / 1.33,
             backgroundColor: colors.whiteSmokeColor,
           }}>
           <TouchableOpacity
             onPress={() => onDirections(item)}
             style={style.shadow}
-            className="absolute flex-row items-center px-4 py-2.5 rounded-full bg-amber-400 bottom-5 right-5">
+            className="flex-row items-center px-4 py-2.5 rounded-full bg-amber-400 absolute bottom-5 right-5">
             <MaterialCommunityIcons
               name="directions"
               size={22}

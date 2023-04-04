@@ -1,4 +1,4 @@
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import React, {useEffect} from 'react';
 import BaseComponent from '../../../components/BaseComponent';
 import {bgColor, deviceWidth} from '../../../styles';
@@ -12,7 +12,7 @@ import FastImage from 'react-native-fast-image';
 import {checkPhone} from '../../../hooks/api/get-api';
 import {useAuth} from '../../../hooks/auth';
 import {useAppDispatch} from '../../../hooks/redux';
-import {setLoadHome, setLoadUser} from '../../../redux/actions';
+import {setLoadUser} from '../../../redux/actions';
 
 const CompletedVerify = (props: any) => {
   const {accessLogin} = useAuth();
@@ -51,13 +51,14 @@ const CompletedVerify = (props: any) => {
           style={{
             width: deviceWidth - 80,
           }}
-          className="absolute top-[120px] z-20 bg-[#F6E3D0] h-[146px] rounded-[21px] p-[26px] mx-10">
+          className="absolute top-[120px] z-20 bg-[#F6E3D0] h-[146px] rounded-[21px] py-5 mx-10">
           <FastImage
             source={require('../../../res/logo/logo-wide.png')}
             style={{
               width: '100%',
               height: '100%',
             }}
+            resizeMode="contain"
           />
         </View>
         <View className="flex-1 w-full items-center mt-[180px]">
