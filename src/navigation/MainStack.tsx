@@ -16,6 +16,7 @@ import Redeem from '../screens/point/Redeem';
 import SplashScreen from '../screens/SplashScreen';
 import Route from './constant';
 import MainDrawer from './MainDrawer';
+import ManageAccount from '../screens/drawer/ManageAccount';
 
 const Stack = createNativeStackNavigator();
 const MainStack = () => {
@@ -48,6 +49,7 @@ const MainStack = () => {
       <Stack.Screen name={Route.CompletedVerify} component={CompletedVerify} />
       <Stack.Screen name={Route.GettingStart} component={GettingStart} />
       <Stack.Screen name={Route.EditProfile} component={UpdateProfile} />
+      <Stack.Screen name={Route.ManageAccount} component={ManageAccount} />
       <Stack.Screen name={Route.Language} component={Language} />
       <Stack.Screen name={Route.Locations} component={Locations} />
       <Stack.Screen

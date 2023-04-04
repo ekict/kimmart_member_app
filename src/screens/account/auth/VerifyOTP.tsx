@@ -130,7 +130,7 @@ const VerifyOTP = (props: any) => {
           className={`flex-1 w-full ${bgColor}
         `}>
           <View className="bg-[#F05A28] opacity-50 h-[150px] w-full" />
-          <View className="absolute z-10 top-[60px] h-[250px] left-[-25px]">
+          <View className="absolute z-10 top-[40px] h-[250px] left-[-25px]">
             <Svg height={250} width={280} viewBox="0 0 261 302">
               <Path
                 fill={'#7BAB91'}
@@ -138,7 +138,7 @@ const VerifyOTP = (props: any) => {
               />
             </Svg>
           </View>
-          <View className="absolute right-[-15px] top-[90px] z-20 bg-[#F6E3D0] h-[120px] w-9/12 rounded-[21px] p-[24px]">
+          <View className="absolute right-[-15px] top-[70px] z-20 bg-[#F6E3D0] h-[120px] w-9/12 rounded-[21px] p-[24px]">
             <FastImage
               source={require('../../../res/logo/logo-wide.png')}
               style={{
@@ -148,7 +148,7 @@ const VerifyOTP = (props: any) => {
             />
           </View>
 
-          <View className="flex-1 w-full items-center mt-[140px]">
+          <View className="flex-1 w-full items-center mt-[120px]">
             <View
               className={`w-24 h-24 rounded-full items-center justify-center mb-4 ${colors.bgMainMolor}`}>
               <MaterialCommunityIcons

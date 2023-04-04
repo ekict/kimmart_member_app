@@ -27,7 +27,6 @@ import colors from './src/styles/colors';
 import {MD3LightTheme, Provider as PaperProvider} from 'react-native-paper';
 import Toast from 'react-native-toast-message';
 import {TextTranslate} from './src/components';
-import {Weight} from './src/res/lang';
 import CodePushProvider from './src/services/utils/codepush';
 import {
   CheckIcon,

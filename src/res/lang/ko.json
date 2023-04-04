@@ -24,7 +24,10 @@
     "full_name": "전체 이름",
     "email": "이메일",
     "enter_full_name": "전체 이름 입력",
-    "enter_email": "이메일 입력"
+    "enter_email": "이메일 입력",
+    "delete_account": "계정 삭제",
+    "manage_account": "계정 관리",
+    "delete_account_info": "계정을 삭제하기 전에 다시 한번 확인 부탁 들입니다 . 계정을 삭제하는 경우 인보이스, 현재 포인트 모든 정보가 삭제됩니다. 삭제된 데이터를 복구할 수 없습니다."
   },
   "error": {
     "required": "{{value1}} 필요하다",
@@ -99,10 +102,13 @@
     "redeem_completed": "성공적으로 차감",
     "are_you_want_to_submit": "제출하시겠습니까?",
     "update_completed": "성공적으로 업데이트",
+    "delete_completed": "삭제되었습니다",
     "no_data": "데이터 없음",
     "processing": "처리중...",
     "wait_until_process_complete": "프로세스가 완료될 때까지 기다리십시오",
     "redeem_incomplete": "차감이 완료되지 않았습니다.",
-    "insufficient_redeem_point": "불충분한 차감 포인트"
+    "insufficient_redeem_point": "불충분한 차감 포인트",
+    "are_you_want_to_delete_account": "계정을 삭제하시겠습니까?",
+    "warning": "경고"
   }
 }

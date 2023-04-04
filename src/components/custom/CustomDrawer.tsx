@@ -7,6 +7,7 @@ import {FlatListScroll, TextTranslate} from '..';
 import {LanguageData, Weight} from '../../res/lang';
 import {
   ChevronRightIcon,
+  CogIcon,
   LanguageIcon,
   MapIcon,
   ShoppingBagIcon,
@@ -14,7 +15,7 @@ import {
 } from 'react-native-heroicons/outline';
 import i18next from 'i18next';
 import {ArrowLeftOnRectangleIcon} from 'react-native-heroicons/solid';
-import {closeDrawer, navigate, reset} from '../../services/utils/navigate';
+import {navigate, reset} from '../../services/utils/navigate';
 import Route from '../../navigation/constant';
 import {useTranslation} from 'react-i18next';
 import FastImage from 'react-native-fast-image';
@@ -100,15 +101,29 @@ const CustomDrawer = () => {
               <TouchableOpacity
                 onPress={() => {
                   navigate(Route.EditProfile);
-                  setTimeout(() => {
-                    closeDrawer();
-                  }, 500);
                 }}
                 className="flex-row items-center justify-between mt-4">
                 <View className="flex-row items-center gap-2">
                   <UserIcon color={colors.darkColor} opacity={0.6} size={24} />
                   <TextTranslate style={styles.listTitle}>
                     home.edit_profile
+                  </TextTranslate>
+                </View>
+                <ChevronRightIcon
+                  color={colors.darkColor}
+                  opacity={0.6}
+                  size={18}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  navigate(Route.ManageAccount);
+                }}
+                className="flex-row items-center justify-between mt-4">
+                <View className="flex-row items-center gap-2">
+                  <CogIcon color={colors.darkColor} opacity={0.6} size={24} />
+                  <TextTranslate style={styles.listTitle}>
+                    auth.manage_account
                   </TextTranslate>
                 </View>
                 <ChevronRightIcon
@@ -125,9 +140,6 @@ const CustomDrawer = () => {
               <TouchableOpacity
                 onPress={() => {
                   navigate(Route.Language);
-                  setTimeout(() => {
-                    closeDrawer();
-                  }, 500);
                 }}
                 className="flex-row items-center justify-between mt-4">
                 <View className="flex-row items-center gap-2">
@@ -167,9 +179,6 @@ const CustomDrawer = () => {
               <TouchableOpacity
                 onPress={() => {
                   navigate(Route.PurchaseHistory);
-                  setTimeout(() => {
-                    closeDrawer();
-                  }, 500);
                 }}
                 className="flex-row items-center justify-between mt-4">
                 <View className="flex-row items-center gap-2">
@@ -197,9 +206,6 @@ const CustomDrawer = () => {
                 <TouchableOpacity
                   onPress={() => {
                     navigate(Route.Locations);
-                    setTimeout(() => {
-                      closeDrawer();
-                    }, 500);
                   }}
                   className="flex-row items-center justify-between mt-4">
                   <View className="flex-row items-center gap-2">

@@ -24,7 +24,10 @@
     "full_name": "ឈ្មោះ​ពេញ",
     "email": "អ៊ីមែល",
     "enter_full_name": "បញ្ចូលឈ្មោះពេញ",
-    "enter_email": "បញ្ចូលអ៊ីមែល"
+    "enter_email": "បញ្ចូលអ៊ីមែល",
+    "delete_account": "លុប​គណនី",
+    "manage_account": "គ្រប់គ្រងគណនី",
+    "delete_account_info": "ត្រូវប្រាកដថាអ្នកចង់លុបគណនីរបស់អ្នក បន្ទាប់ពីអ្នកលុបគណនីរបស់អ្នក ព័ត៌មានទាំងអស់ដូចជាវិក្កយបត្រ ពិន្ទុនឹងត្រូវបានលុប។ អ្នកមិនអាចយកទិន្នន័យរបស់អ្នកមកវិញបានទេ។"
   },
   "error": {
     "required": "{{value1}} ត្រូវតែបំពេញ",
@@ -99,10 +102,13 @@
     "redeem_completed": "ចំណាយជោគជ័យ",
     "are_you_want_to_submit": "តើអ្នកប្រាកដជាចង់បញ្ជូនមែនទេ?",
     "update_completed": "កែប្រែជោគជ័យ",
+    "delete_completed": "លុបជោគជ័យ",
     "no_data": "គ្មានទិន្នន័យ",
     "processing": "កំពុងដំណើរការ...",
     "wait_until_process_complete": "រង់ចាំរហូតដល់ដំណើរការបញ្ចប់",
     "redeem_incomplete": "ការចំណាយមិនជោគជ័យ",
-    "insufficient_redeem_point": "ពិន្ទុចំណាយមិនគ្រប់គ្រាន់"
+    "insufficient_redeem_point": "ពិន្ទុចំណាយមិនគ្រប់គ្រាន់",
+    "are_you_want_to_delete_account": "តើអ្នកប្រាកដក្នុងការលុបគណនីរបស់អ្នកមែនទេ?",
+    "warning": "ការព្រមាន"
   }
 }

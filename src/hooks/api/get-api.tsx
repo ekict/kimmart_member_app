@@ -5,6 +5,7 @@ import {
   EARN_POINT_RETURN_INVOICES,
   HOME_MEMBER,
   INVOICES,
+  MEMBER_DELETE,
   REDEEM_POINT_INVOICES,
   RETURN_INVOICES,
   SUBMIT_REDEEM,
@@ -57,5 +58,10 @@ export const submitRedeem = async (data: any) => {
 
 export const testLogin = async (data: any) => {
   const result = await fetchAPI(MethodType.GET, TEST_LOGIN, data);
+  return result;
+};
+
+export const memberDelete = async (data: any) => {
+  const result = await fetchAPI(MethodType.GET, MEMBER_DELETE, data);
   return result;
 };

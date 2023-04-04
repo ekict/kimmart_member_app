@@ -16,5 +16,6 @@ const Route = {
   Redeem: 'Redeem',
   PurchaseHistory: 'PurchaseHistory',
   PurchaseDetail: 'PurchaseDetail',
+  ManageAccount: 'ManageAccount',
 };
 export default Route;

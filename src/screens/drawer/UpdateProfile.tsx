@@ -19,14 +19,14 @@ import {allowCameraAccess} from '../../services/utils/permission';
 import {Formik} from 'formik';
 import TextInputItem from '../../components/custom/TextInputItem';
 import {profileSchema} from '../../services/utils/validation';
-import {ButtonSubmit, FlatListScroll} from '../../components';
+import {ButtonSubmit, FlatListScroll, TextTranslate} from '../../components';
 import FastImage from 'react-native-fast-image';
 import {reset} from '../../services/utils/navigate';
 import Route from '../../navigation/constant';
 import {postMember} from '../../hooks/api/post-api';
 import Toast from 'react-native-toast-message';
 import {StatusType} from '../../../App';
-import {setLoadHome, setLoadUser} from '../../redux/actions';
+import {setLoadUser} from '../../redux/actions';
 
 const UpdateProfile = (props: any) => {
   const {phone} = props.route.params;
@@ -176,25 +176,25 @@ const UpdateProfile = (props: any) => {
           className={`flex-1 w-full ${bgColor}
           `}>
           <View className="h-[15%] bg-[#F6E3D0] p-6 z-20">
-            <TouchableOpacity
-              onPress={onShowBottomSheet}
-              className="absolute left-0 right-0 items-center top-[35px] z-20">
-              <LinearGradient
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 1}}
-                colors={['rgba(255, 122, 0, 1)', 'rgba(33, 150, 83, 1)']}
-                className="items-center justify-center rounded-full w-36 h-36">
-                <View
-                  className={`w-[130px] h-[130px] rounded-full ${colors.bgMainMolor}`}>
-                  <FastImage
-                    source={image ? image : defaultImage}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      borderRadius: 1000,
-                    }}
-                  />
-                </View>
+            <View className="absolute left-0 right-0 items-center top-[35px] z-20">
+              <TouchableOpacity onPress={onShowBottomSheet}>
+                <LinearGradient
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 1}}
+                  colors={['rgba(255, 122, 0, 1)', 'rgba(33, 150, 83, 1)']}
+                  className="items-center justify-center rounded-full w-36 h-36">
+                  <View
+                    className={`w-[130px] h-[130px] rounded-full ${colors.bgMainMolor}`}>
+                    <FastImage
+                      source={image ? image : defaultImage}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 1000,
+                      }}
+                    />
+                  </View>
+                </LinearGradient>
                 <LinearGradient
                   start={{x: 0, y: 0}}
                   end={{x: 1, y: 1}}
@@ -208,10 +208,9 @@ const UpdateProfile = (props: any) => {
                       size={20}
                     />
                   </View>
-                  <View></View>
                 </LinearGradient>
-              </LinearGradient>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
           </View>
           <FlatListScroll>
             <Formik

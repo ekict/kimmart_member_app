@@ -2,7 +2,6 @@ import {Platform} from 'react-native';
 import {
   requestMultiple,
   PERMISSIONS,
-  openSettings,
   check,
   RESULTS,
 } from 'react-native-permissions';
@@ -14,13 +13,6 @@ export const allowCameraAccess = async () => {
       PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
       PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
     ]);
-    if (
-      permission[PERMISSIONS.ANDROID.CAMERA] === 'blocked' ||
-      permission[PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE] === 'blocked' ||
-      permission[PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE] === 'blocked'
-    ) {
-      openSettings();
-    }
     return (
       permission[PERMISSIONS.ANDROID.CAMERA] === 'granted' &&
       permission[PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE] === 'granted' &&
@@ -32,14 +24,6 @@ export const allowCameraAccess = async () => {
       PERMISSIONS.IOS.PHOTO_LIBRARY,
       PERMISSIONS.IOS.PHOTO_LIBRARY_ADD_ONLY,
     ]);
-
-    if (
-      permission[PERMISSIONS.IOS.CAMERA] === 'blocked' ||
-      permission[PERMISSIONS.IOS.PHOTO_LIBRARY] === 'blocked' ||
-      permission[PERMISSIONS.IOS.PHOTO_LIBRARY_ADD_ONLY] === 'blocked'
-    ) {
-      openSettings();
-    }
     return (
       permission[PERMISSIONS.IOS.CAMERA] === 'granted' &&
       permission[PERMISSIONS.IOS.PHOTO_LIBRARY] === 'granted' &&

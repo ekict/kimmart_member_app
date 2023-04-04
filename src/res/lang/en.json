@@ -24,7 +24,10 @@
     "full_name": "Full Name",
     "email": "Email",
     "enter_full_name": "Enter Full Name",
-    "enter_email": "Enter Email"
+    "enter_email": "Enter Email",
+    "delete_account": "Delete Account",
+    "manage_account": "Manage Account",
+    "delete_account_info": "Make sure you want to delete your account, after you delete your account, all information such as invoices, current points will be deleted. You can not recover your data."
   },
   "error": {
     "required": "{{value1}} is required",
@@ -99,10 +102,13 @@
     "redeem_completed": "Redeem Successfully",
     "are_you_want_to_submit": "Are you sure you want to submit?",
     "update_completed": "Update Successfully",
+    "delete_completed": "Delete Successfully",
     "no_data": "No Data",
     "processing": "Processing...",
     "wait_until_process_complete": "Wait until the process is complete",
     "redeem_incomplete": "Redeem is incomplete",
-    "insufficient_redeem_point": "Insufficient redeem point"
+    "insufficient_redeem_point": "Insufficient redeem point",
+    "are_you_want_to_delete_account": "Are you sure to delete your account?",
+    "warning": "Warning"
   }
 }
