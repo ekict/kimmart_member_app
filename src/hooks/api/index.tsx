@@ -10,21 +10,6 @@ export const MethodType = {
   DELETE: 'DELETE',
 };
 
-// export const URL = {
-//   prod: 'https://dev.ektecno.com',
-//   dev: 'https://dev.ektecno.com',
-// };
-
-// export const server = __DEV__ ? URL.dev : URL.prod;
-
-// export const server = URL.dev;
-
-// export const API = axios.create({
-//   baseURL: `${server}/api/`,
-// });
-
-// API.defaults.withCredentials = true;
-
 export const getURL = async () => {
   let result: any = await fetch(URL);
   result = await result.json();
