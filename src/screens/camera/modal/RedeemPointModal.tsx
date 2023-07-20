@@ -21,6 +21,7 @@ import {Platform} from 'react-native';
 const keypad = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', 'back'];
 const RedeemPointModal = ({visible, closeModal, data}: any) => {
   const {t} = useTranslation('common');
+  const result = data ? JSON.parse(data) : null;
   const user = useAppSelector(state => state.user);
   const [redeemPoint, setRedeemPoint] = useState('0');
   const [isLoading, setIsLoading] = useState(false);
@@ -96,7 +97,7 @@ const RedeemPointModal = ({visible, closeModal, data}: any) => {
               phone: user?.phone,
               customer_id: user?.id,
               redeem_point: Number(redeemPoint),
-              temp_id: data?.temp_id,
+              temp_id: result?.temp_id,
             });
             if (submit.success) {
               closeModal();
@@ -115,7 +116,7 @@ const RedeemPointModal = ({visible, closeModal, data}: any) => {
       ],
     );
   };
-  return data ? (
+  return result ? (
     <Modal
       animationType="fade"
       transparent={true}
@@ -174,7 +175,7 @@ const RedeemPointModal = ({visible, closeModal, data}: any) => {
                     color: colors.iconColor,
                     marginTop: 15,
                   }}>
-                  {`$${Number(data?.amount ?? 0).toFixed(2)}`}
+                  {`$${Number(result?.amount ?? 0).toFixed(2)}`}
                 </TextTranslateWithValue>
               </View>
             </View>
