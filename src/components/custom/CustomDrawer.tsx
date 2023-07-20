@@ -24,7 +24,9 @@ import {useAuth} from '../../hooks/auth';
 import {setLoadUser} from '../../redux/actions';
 import {getImage} from '../../services/utils';
 import {pusher} from '../../navigation/Route';
+import { Text } from 'react-native-paper';
 
+const pck = require('../../../package.json');
 const CustomDrawer = () => {
   const {t} = useTranslation('common');
   const dispatch = useAppDispatch();
@@ -243,6 +245,9 @@ const CustomDrawer = () => {
                   home.logout
                 </TextTranslate>
               </TouchableOpacity>
+            </View>
+            <View className="items-center mt-6">
+             <Text className='text-xs text-gray-400'>Version: {pck?.version}</Text>
             </View>
           </View>
         </FlatListScroll>
