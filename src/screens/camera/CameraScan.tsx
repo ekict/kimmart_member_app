@@ -6,7 +6,7 @@ import {
   Easing,
   StyleSheet,
   Vibration,
-  View
+  View,
 } from 'react-native';
 import {
   Camera,
@@ -19,10 +19,7 @@ import Reanimated, {runOnJS} from 'react-native-reanimated';
 import {useEffect} from 'react';
 import {useIsFocused} from '@react-navigation/core';
 import {goBack} from '../../services/utils/navigate';
-import {
-  BarcodeFormat,
-  scanBarcodes,
-} from 'vision-camera-code-scanner';
+import {BarcodeFormat, scanBarcodes} from 'vision-camera-code-scanner';
 import colors from '../../styles/colors';
 import {useIsForeground} from '../../components/camera/camera';
 import {deviceHeight, deviceWidth} from '../../styles';
@@ -37,7 +34,7 @@ import {TextTranslate} from '../../components';
 import {Weight} from '../../res/lang';
 import FastImage from 'react-native-fast-image';
 import RedeemPointModal from './modal/RedeemPointModal';
-import Orientation from "react-native-orientation-locker";
+import Orientation from 'react-native-orientation-locker';
 
 function getMaxFps(format: CameraDeviceFormat): number {
   return format.frameRateRanges.reduce((prev, curr) => {
@@ -96,10 +93,10 @@ export function CameraScan() {
   useEffect(() => {
     Orientation.lockToPortrait();
     BackHandler.addEventListener('hardwareBackPress', backAction);
-    return () =>{
+    return () => {
       BackHandler.removeEventListener('hardwareBackPress', backAction);
       Orientation.unlockAllOrientations();
-    }
+    };
   }, []);
 
   useEffect(() => {
@@ -173,12 +170,10 @@ export function CameraScan() {
         if (device.supportsFocus) {
           const x = nativeEvent.x;
           const y = nativeEvent.y;
-          if (x > 0 && y > 0 && x <= width && y <= height) {
-            try {
-              await camera.current?.focus({x, y});
-            } catch (error) {
-              // console.log(error);
-            }
+          try {
+            await camera.current?.focus({x, y});
+          } catch (error) {
+            // console.log(error);
           }
         }
       }
