@@ -22,7 +22,6 @@ const keypad = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', 'back'];
 const RedeemPointModal = ({visible, closeModal, data}: any) => {
   const {t} = useTranslation('common');
   const user = useAppSelector(state => state.user);
-  const result = data.length > 0 ? JSON.parse(data[0]?.displayValue) : null;
   const [redeemPoint, setRedeemPoint] = useState('0');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -97,7 +96,7 @@ const RedeemPointModal = ({visible, closeModal, data}: any) => {
               phone: user?.phone,
               customer_id: user?.id,
               redeem_point: Number(redeemPoint),
-              temp_id: result?.temp_id,
+              temp_id: data?.temp_id,
             });
             if (submit.success) {
               closeModal();
@@ -116,7 +115,7 @@ const RedeemPointModal = ({visible, closeModal, data}: any) => {
       ],
     );
   };
-  return result ? (
+  return data ? (
     <Modal
       animationType="fade"
       transparent={true}
@@ -175,7 +174,7 @@ const RedeemPointModal = ({visible, closeModal, data}: any) => {
                     color: colors.iconColor,
                     marginTop: 15,
                   }}>
-                  {`$${Number(result?.amount ?? 0).toFixed(2)}`}
+                  {`$${Number(data?.amount ?? 0).toFixed(2)}`}
                 </TextTranslateWithValue>
               </View>
             </View>
@@ -214,7 +213,7 @@ const RedeemPointModal = ({visible, closeModal, data}: any) => {
         )}
         <TouchableOpacity
           onPress={closeModal}
-          className="self-center mt-10 items-center justify-center w-16 h-16 bg-white rounded-full">
+          className="items-center self-center justify-center w-16 h-16 mt-10 bg-white rounded-full">
           <XMarkIcon color={colors.darkColor} size={30} />
         </TouchableOpacity>
       </View>

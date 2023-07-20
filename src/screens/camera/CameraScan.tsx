@@ -1,6 +1,14 @@
 import * as React from 'react';
 import {useRef, useState, useMemo, useCallback} from 'react';
-import {BackHandler, StyleSheet, Vibration, View} from 'react-native';
+import {
+  Animated,
+  BackHandler,
+  Easing,
+  StyleSheet,
+  Vibration,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import {
   Camera,
   CameraDeviceFormat,
@@ -12,7 +20,10 @@ import Reanimated, {runOnJS} from 'react-native-reanimated';
 import {useEffect} from 'react';
 import {useIsFocused} from '@react-navigation/core';
 import {goBack} from '../../services/utils/navigate';
-import {BarcodeFormat, scanBarcodes} from 'vision-camera-code-scanner';
+import {
+  BarcodeFormat,
+  scanBarcodes,
+} from 'vision-camera-code-scanner';
 import colors from '../../styles/colors';
 import {useIsForeground} from '../../components/camera/camera';
 import {deviceHeight, deviceWidth} from '../../styles';
@@ -48,19 +59,35 @@ export function useBarcodePickerListener(
 }
 
 export function CameraScan() {
+  const size = useWindowDimensions();
   const camera = useRef<Camera>(null);
+  const animatedValue = useRef(new Animated.Value(0)).current;
+
+  const is_landscape = size.height < size.width;
+  const top = size.height * 0.18;
+  const left = is_landscape ? size.width * 0.24 : size.width * 0.1;
+  const width = size.width - left * 2;
+  const height = size.width - left * 2.8;
+  const lineColor = '#FFDD00';
+  const borderColor = '#ca5028';
+
   const [isCameraInitialized, setIsCameraInitialized] = useState(false);
   // check if camera page is active
   const isFocussed = useIsFocused();
   const isForeground = useIsForeground();
   let isActive = isFocussed && isForeground;
 
-  const [qrcodes, setQrcodes] = useState<any>([]);
+  const [barcode, setBarcode] = useState<any>('');
+  const [isTop, setIsTop] = useState(true);
   const [visibleModal, setVisibleModal] = useState(false);
 
   // camera format settings
-  const devices = useCameraDevices();
-  const device = devices['back'];
+  const wide_devices = useCameraDevices('wide-angle-camera');
+  const all_devices = useCameraDevices();
+  const device =
+    all_devices?.['back'] !== undefined
+      ? wide_devices?.['back'] ?? all_devices?.['back']
+      : null;
 
   //Back Action
   const backAction = () => {
@@ -75,18 +102,29 @@ export function CameraScan() {
   }, []);
 
   useEffect(() => {
-    let isCapture = false;
-    if (qrcodes.length > 0 && isCameraInitialized && isActive) {
-      const init = () => {
-        isCapture = true;
-        onSubmit();
-      };
-      if (!isCapture) init();
+    startAnimation(isTop ? 1 : 0);
+  }, [isTop]);
+
+  const startAnimation = (toValue: any) => {
+    Animated.timing(animatedValue, {
+      toValue,
+      duration: 1000,
+      easing: Easing.linear,
+      useNativeDriver: true,
+    }).start(() => {
+      setIsTop(!isTop);
+    });
+  };
+
+  useEffect(() => {
+    if (isFocussed) setBarcode('');
+  }, [isFocussed]);
+
+  useEffect(() => {
+    if (barcode?.length > 0) {
+      Vibration.vibrate(150);
     }
-    return () => {
-      isCapture = false;
-    };
-  }, [qrcodes.length, isCameraInitialized, isActive]);
+  }, [barcode]);
 
   const onError = useCallback((error: CameraRuntimeError) => {
     console.error(error);
@@ -118,7 +156,9 @@ export function CameraScan() {
         const detectedBarcodes = scanBarcodes(frame, [BarcodeFormat.QR_CODE], {
           checkInverted: true,
         });
-        runOnJS(setQrcodes)(detectedBarcodes);
+        if (detectedBarcodes.length > 0) {
+          runOnJS(setBarcode)(detectedBarcodes[0]?.displayValue);
+        }
       }
     },
     [isActive],
@@ -145,48 +185,75 @@ export function CameraScan() {
   };
 
   const closeModal = () => {
-    setQrcodes([]);
+    setBarcode('');
     setVisibleModal(false);
   };
+
+  const translateY = animatedValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, height - 4],
+    extrapolate: 'clamp',
+  });
+
   return (
     <>
       <BaseComponent title="home.scan_qr">
         <View style={styles.container}>
-          <View className="absolute inset-0 z-50 items-center pt-[160px]">
-            {device != null && (
-              <TapGestureHandler onHandlerStateChange={focusCamera}>
-                <Reanimated.View
-                  style={{
-                    padding: 2,
-                    borderWidth: 2,
-                    borderColor: colors.secondColor,
-                  }}>
-                  <Camera
-                    ref={camera}
-                    format={format}
-                    style={[
-                      {
-                        width: 325,
-                        height: 325,
-                      },
-                    ]}
-                    device={device}
-                    isActive={isActive}
-                    onInitialized={onInitialized}
-                    onError={onError}
-                    enableZoomGesture={false}
-                    photo={true}
-                    frameProcessor={
-                      device.supportsParallelVideoProcessing &&
-                      qrcodes.length === 0
-                        ? frameProcessor
-                        : undefined
-                    }
-                    orientation="portrait"
-                  />
-                </Reanimated.View>
-              </TapGestureHandler>
-            )}
+          <View
+            style={[
+              StyleSheet.absoluteFillObject,
+              {
+                position: 'absolute',
+                top,
+                left,
+                height,
+                width,
+                borderWidth: 2,
+                borderColor: borderColor,
+              },
+            ]}>
+            <View className="absolute inset-0 z-20 items-center">
+              {device != null && (
+                <TapGestureHandler onHandlerStateChange={focusCamera}>
+                  <Reanimated.View>
+                    <Camera
+                      ref={camera}
+                      format={format}
+                      style={[
+                        {
+                          height: height - 3,
+                          width: width - 3,
+                        },
+                      ]}
+                      device={device}
+                      isActive={isActive}
+                      onInitialized={onInitialized}
+                      onError={onError}
+                      enableZoomGesture={false}
+                      photo={true}
+                      frameProcessorFps={1}
+                      frameProcessor={
+                        barcode?.length === 0 ? frameProcessor : undefined
+                      }
+                      orientation="portrait"
+                    />
+                  </Reanimated.View>
+                </TapGestureHandler>
+              )}
+              {isCameraInitialized && (
+                <Animated.View
+                  className={'absolute z-30'}
+                  style={[
+                    {
+                      width,
+                      borderBottomWidth: 2,
+                      borderBottomColor: lineColor,
+                    },
+                    {transform: [{translateY}]},
+                  ]}
+                />
+              )}
+            </View>
           </View>
           <View className="absolute left-0 right-0 z-20 items-center top-10">
             <TextTranslate weight={Weight.bold} style={styles.title}>
@@ -213,7 +280,7 @@ export function CameraScan() {
           <RedeemPointModal
             visible={visibleModal}
             closeModal={closeModal}
-            data={qrcodes}
+            data={barcode}
           />
         </View>
       )}
