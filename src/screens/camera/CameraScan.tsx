@@ -120,6 +120,7 @@ export function CameraScan() {
 
   useEffect(() => {
     if (barcode?.length > 0) {
+      onSubmit()
       Vibration.vibrate(150);
     }
   }, [barcode]);
