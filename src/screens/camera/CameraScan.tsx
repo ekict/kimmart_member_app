@@ -6,8 +6,7 @@ import {
   Easing,
   StyleSheet,
   Vibration,
-  View,
-  useWindowDimensions,
+  View
 } from 'react-native';
 import {
   Camera,
@@ -38,6 +37,7 @@ import {TextTranslate} from '../../components';
 import {Weight} from '../../res/lang';
 import FastImage from 'react-native-fast-image';
 import RedeemPointModal from './modal/RedeemPointModal';
+import Orientation from "react-native-orientation-locker";
 
 function getMaxFps(format: CameraDeviceFormat): number {
   return format.frameRateRanges.reduce((prev, curr) => {
@@ -59,17 +59,15 @@ export function useBarcodePickerListener(
 }
 
 export function CameraScan() {
-  const size = useWindowDimensions();
   const camera = useRef<Camera>(null);
   const animatedValue = useRef(new Animated.Value(0)).current;
 
-  const is_landscape = size.height < size.width;
-  const top = size.height * 0.18;
-  const left = is_landscape ? size.width * 0.24 : size.width * 0.1;
-  const width = size.width - left * 2;
-  const height = size.width - left * 2.8;
+  const top = deviceHeight * 0.18;
+  const left = deviceWidth * 0.1;
+  const width = deviceWidth - left * 2;
+  const height = deviceWidth - left * 2.8;
   const lineColor = '#FFDD00';
-  const borderColor = '#ca5028';
+  const borderColor = '#f37146';
 
   const [isCameraInitialized, setIsCameraInitialized] = useState(false);
   // check if camera page is active
@@ -96,9 +94,12 @@ export function CameraScan() {
   };
 
   useEffect(() => {
+    Orientation.lockToPortrait();
     BackHandler.addEventListener('hardwareBackPress', backAction);
-    return () =>
+    return () =>{
       BackHandler.removeEventListener('hardwareBackPress', backAction);
+      Orientation.unlockAllOrientations();
+    }
   }, []);
 
   useEffect(() => {
@@ -170,9 +171,9 @@ export function CameraScan() {
     if (device) {
       if (isCameraInitialized) {
         if (device.supportsFocus) {
-          const x = nativeEvent.x - deviceWidth * 0.1;
-          const y = nativeEvent.y - deviceHeight * 0.2;
-          if (x > 0 && y > 0 && x <= 330 && y <= 330) {
+          const x = nativeEvent.x;
+          const y = nativeEvent.y;
+          if (x > 0 && y > 0 && x <= width && y <= height) {
             try {
               await camera.current?.focus({x, y});
             } catch (error) {

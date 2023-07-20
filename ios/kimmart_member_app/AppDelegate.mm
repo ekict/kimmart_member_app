@@ -4,6 +4,7 @@
 #import <AppCenterReactNative.h>
 #import <AppCenterReactNativeAnalytics.h>
 #import <AppCenterReactNativeCrashes.h>
+#import "Orientation.h"
 
 @implementation AppDelegate
 
@@ -28,6 +29,10 @@
 #else
   return [CodePush bundleURL];
 #endif
+}
+
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+  return [Orientation getOrientation];
 }
 
 /// This method controls whether the `concurrentRoot`feature of React18 is turned on or off.
